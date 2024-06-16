@@ -2,9 +2,31 @@
 
 import 'package:flutter/material.dart';
 import './HomePage.dart';
+import './ProfileScreen.dart';
+import './Settings.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int selectedIndex = 0;
+
+  void _navigate(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  final List _pages = [
+    HomePage(),
+    SettingsScreen(),
+    ProfileScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +40,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.black87,
             title: const Center(
               child: Text(
-                "Performance",
+                "E-Commerce",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -60,20 +82,44 @@ class HomeScreen extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.settings),
               title: Text("S E T T I N G S"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingsScreen()));
+              },
             ),
             ListTile(
               leading: Icon(Icons.person),
               title: Text("P R O F I L E"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfileScreen()));
+              },
             )
           ],
         ),
       ),
+      body: _pages[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        currentIndex: selectedIndex,
+        type: BottomNavigationBarType.shifting,
+        onTap: _navigate,
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: "Settings"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+              icon: Icon(Icons.home),
+              label: "Home",
+              backgroundColor: Colors.blueGrey[900]),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "Settings",
+              backgroundColor: Colors.blueGrey[900]),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Profile",
+              backgroundColor: Colors.blueGrey[900]),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.checklist_sharp),
+              label: "CheckList",
+              backgroundColor: Colors.blueGrey[900]),
         ],
       ),
     );

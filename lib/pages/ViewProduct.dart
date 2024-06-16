@@ -27,7 +27,7 @@ class ViewProduct extends StatelessWidget {
           style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 40),
         ),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(
         children: [
